@@ -8,8 +8,8 @@ const Header = () => {
   return (
     <div
       className={classNames(
-        "w-full sticky top-0 flex justify-between",
-        "px-2 py-3"
+        "h-[50px] w-full sticky top-0 flex justify-between",
+        "px-2 shadow-md"
       )}
     >
       <div className="flex-1 flex items-center justify-start gap-1">

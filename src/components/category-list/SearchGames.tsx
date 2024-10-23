@@ -8,8 +8,9 @@ import useFilter from "@/hooks/useFilter";
 const SearchGames = () => {
   const { handleSetFilter } = useFilter();
 
-  const handleDebounce = debounce((e) => {
-    handleSetFilter({ search: e.target.value});
+  const handleDebounce = debounce((...args: unknown[]) => {
+    const e = args[0] as React.ChangeEvent<HTMLInputElement>;
+    handleSetFilter({ search: e.target.value });
   }, 500);
 
   return (

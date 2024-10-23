@@ -8,7 +8,7 @@ const Banner = () => {
       <Main />
       <p className="flex items-center gap-2 text-sm text-primary">
         <SvgWrapper src="/assets/bell.svg" className="w-4 h-4" />
-        ¡FELICIDADES artxxxxipa! GANADOR DESTACADO
+        <span className="line-clamp-1">¡FELICIDADES artxxxxipa! GANADOR DESTACADO</span>
       </p>
     </div>
   );

@@ -1,4 +1,5 @@
 import Banner from "@/components/base/banner/Banner";
+import CategoryList from "@/components/category-list/CategoryList";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import classNames from "@/utils/classNames";
@@ -14,6 +15,7 @@ export default function Home() {
       <main className="flex-1 flex flex-col w-full">
         <Header />
         <Banner />
+        <CategoryList />
       </main>
       <Footer />
     </div>

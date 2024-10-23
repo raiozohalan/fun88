@@ -8,7 +8,7 @@ import GameProviderMenu from "./GameProviderMenu/GameProviderMenu";
 const SearchGames = () => {
   return (
     <>
-      <div className="flex gap-3 w-full px-4 py-2">
+      <div className="flex gap-3 w-full px-4 py-2 sticky top-[98px] bg-white">
         <div
           className={classNames(
             "flex-1 flex gap-1 pl-3 h-fit",

@@ -21,7 +21,7 @@ const CategoryList = () => {
     <>
       <div
         className={classNames(
-          "max-w-full h-fit bg-white pl-2",
+          "max-w-full h-fit bg-white pl-2 sticky top-[50px]",
           "flex-none flex items-center justify-evenly"
         )}
       >

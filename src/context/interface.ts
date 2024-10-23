@@ -10,13 +10,16 @@ export type GameCategory =
   | "Slots"
   | "Start"
   | "Table Games";
-export interface GameData {
+export interface GameDataItem {
   id: string;
   name: string;
   providerID: string;
   category: GameCategory;
   banner: string; // Logo or game banner to display
   isFavorite?: boolean; // If the game is marked as favorite
+}
+export interface GameData {
+  [key: string]: GameDataItem;
 }
 
 export interface GameProvider {
@@ -32,7 +35,7 @@ export interface RootContextProps {
   };
   games: {
     isFetching: boolean;
-    data: GameData[];
+    data: GameData;
   };
   filters: {
     category?: GameCategory;

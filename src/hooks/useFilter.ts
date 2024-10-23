@@ -1,12 +1,12 @@
-import { GameData, RootContextProps } from "@/context/interface";
+import { GameDataItem, RootContextProps } from "@/context/interface";
 import { useRootContext } from "@/context/useRootContext";
 import { useCallback, useMemo } from "react";
 
 const useFilter = () => {
   const { state, dispatch } = useRootContext();
-  
+
   const gamesFilter = useCallback(
-    (game: GameData) => {
+    (game: GameDataItem) => {
       const { filters } = state || {};
 
       if (!filters) return true;
@@ -59,7 +59,7 @@ const useFilter = () => {
         id: Math.random().toLocaleString(),
       }));
 
-    return state?.games?.data?.filter(gamesFilter);
+    return Object.values(state?.games?.data ?? {})?.filter(gamesFilter);
   }, [state, gamesFilter, isLoading]);
 
   const handleSetFilter = useCallback(

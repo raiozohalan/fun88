@@ -1,5 +1,4 @@
-import { ValueOf } from "next/dist/shared/lib/constants";
-import { RootContextProps } from "./interface";
+import { GameDataItem, RootContextProps } from "./interface";
 
 type Action = { type: string; payload: any };
 
@@ -28,6 +27,25 @@ const setDataState = (
   },
 });
 
+const updateGameData = (
+  state: RootContextProps,
+  payload: GameDataItem
+): RootContextProps => {
+  const updatedGames = { ...state?.games?.data };
+  updatedGames[payload?.id] = {
+    ...updatedGames?.[payload?.id],
+    ...payload,
+  };
+
+  return {
+    ...state,
+    games: {
+      ...state.games,
+      data: updatedGames,
+    },
+  };
+};
+
 export const rootReducer = (
   state: RootContextProps,
   action: Action
@@ -47,6 +65,8 @@ export const rootReducer = (
       return setFetchingState(state, "filters", payload);
     case "SET_FILTER":
       return setDataState(state, "filters", payload);
+    case "UPDATE_GAME_DATA":
+      return updateGameData(state, payload);
     default:
       return state;
   }

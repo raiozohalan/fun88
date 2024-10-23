@@ -7,14 +7,14 @@ export const DUMMY_GAME_LIST: GameData[] = [
     id: "1",
     name: "Anaconda Wild 2",
     providerID: "14",
-    category: "Jackpot",
+    category: "Jackpots",
     banner: `${ROOT_PATH}anaconda-wild-2.png`,
   },
   {
     id: "2",
     name: "Aztec Bonus Lines",
     providerID: "9",
-    category: "Jackpot",
+    category: "Jackpots",
     banner: `${ROOT_PATH}aztec-bonus-lines.png`,
   },
   {
@@ -35,7 +35,7 @@ export const DUMMY_GAME_LIST: GameData[] = [
     id: "5",
     name: "Book of Egypt",
     providerID: "15",
-    category: "Table",
+    category: "Table Games",
     banner: `${ROOT_PATH}book-of-egypt.png`,
   },
   {
@@ -49,14 +49,14 @@ export const DUMMY_GAME_LIST: GameData[] = [
     id: "7",
     name: "Inca Jackpot",
     providerID: "7",
-    category: "Jackpot",
+    category: "Jackpots",
     banner: `${ROOT_PATH}inca-jackpot.png`,
   },
   {
     id: "8",
     name: "Maya Jackpot",
     providerID: "5",
-    category: "Jackpot",
+    category: "Jackpots",
     banner: `${ROOT_PATH}maya-jackpot.png`,
   },
   {

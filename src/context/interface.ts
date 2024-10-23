@@ -2,14 +2,14 @@ import { Dispatch } from "react";
 
 export type GameCategory =
   | "Bingo"
-  | "Jackpot"
+  | "Jackpots"
   | "Live"
   | "New"
   | "Others"
   | "Search"
   | "Slots"
   | "Start"
-  | "Table";
+  | "Table Games";
 export interface GameData {
   id: string;
   name: string;
@@ -37,9 +37,10 @@ export interface RootContextProps {
   filters: {
     category?: GameCategory;
     search?: string;
+    showSearchField?: boolean;
     gameProviderID?: string;
     isFetching?: boolean;
-  }
+  };
 }
 
 export interface GameContextProps {

@@ -22,6 +22,7 @@ const setDataState = (
 ): RootContextProps => ({
   ...state,
   [key]: {
+    ...state[key],
     isFetching: false,
     ...data,
   },

@@ -5,15 +5,15 @@ import { useCallback, useMemo } from "react";
 const useFilter = () => {
   const { state, dispatch } = useRootContext();
 
-  const validCategories = new Set([
+  const validCategories = [
     "Bingo",
-    "Jackpot",
+    "Jackpots",
     "Live",
     "New",
     "Others",
     "Slots",
-    "Table",
-  ]);
+    "Table Games",
+  ];
   
   const gamesFilter = useCallback(
     (game: GameData) => {
@@ -32,8 +32,9 @@ const useFilter = () => {
       }
 
       // Filter by category
-      if (category && category !== "Start") {
-        if (!validCategories.has(category)) return false;
+      if (category && !["Start", "Search"].includes(category)) {
+        console.log({ validCategories, isValid: validCategories.includes(category), gamecategory: game?.category, category  });
+        if (!validCategories.includes(category)) return false;
       }
 
       // Filter by game provider
@@ -41,7 +42,7 @@ const useFilter = () => {
 
       return true;
     },
-    [state]
+    [state, validCategories]
   );
 
   /**
@@ -83,8 +84,8 @@ const useFilter = () => {
     []
   );
 
-  console.log({ filteredGames, state });
+  const filters = useMemo(() => state?.filters, [state?.filters]);
 
-  return { filteredGames, isLoading, handleSetFilter };
+  return { filteredGames, isLoading, handleSetFilter, filters };
 };
 export default useFilter;

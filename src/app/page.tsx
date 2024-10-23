@@ -1,4 +1,5 @@
 import Banner from "@/components/base/banner/Banner";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import classNames from "@/utils/classNames";
 
@@ -14,7 +15,7 @@ export default function Home() {
         <Header />
         <Banner />
       </main>
-      <footer className="flex-none row-start-3 flex gap-6 flex-wrap items-center justify-center"></footer>
+      <Footer />
     </div>
   );
 }

@@ -2,8 +2,8 @@ import SearchMenu from "@/components/assets/SearchMenu";
 import Button from "@/components/base/button/Button";
 import SvgWrapper from "@/components/base/wrapper/SvgWrapper";
 import classNames from "@/utils/classNames";
-import App from "next/app";
 import React, { Dispatch, SetStateAction } from "react";
+import gameProviderList from "./game-provider-list";
 
 interface GameProviderHeaderProps {
   closeMenu: Dispatch<SetStateAction<boolean>>;
@@ -26,7 +26,7 @@ const GameProviderHeader = ({ closeMenu }: GameProviderHeaderProps) => {
             "ring-1 ring-white text-sm"
           )}
         >
-          119
+          {gameProviderList.length}
         </span>
       </div>
       <Button size="xs" onClick={() => closeMenu((prev: boolean) => !prev)}>

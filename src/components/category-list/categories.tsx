@@ -1,3 +1,4 @@
+import { GameCategory } from "@/context/interface";
 import {
   Bingo,
   Jackpot,
@@ -9,8 +10,12 @@ import {
   Table,
   // Add more exports as needed
 } from "../assets/game-category";
+import { FC, SVGProps } from "react";
 
-const CATEGORY_LIST = [
+const CATEGORY_LIST: {
+  title: GameCategory;
+  Icon: FC<SVGProps<SVGSVGElement>>;
+}[] = [
   {
     title: "Start",
     Icon: Start,

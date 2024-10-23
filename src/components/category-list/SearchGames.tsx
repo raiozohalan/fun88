@@ -4,8 +4,16 @@ import classNames from "@/utils/classNames";
 import Button from "../base/button/Button";
 import SearchMenu from "../assets/SearchMenu";
 import GameProviderMenu from "./GameProviderMenu/GameProviderMenu";
+import debounce from "@/utils/debounce";
+import useFilter from "@/hooks/useFilter";
 
 const SearchGames = () => {
+  const { handleSetFilter } = useFilter();
+
+  const handleDebounce = debounce((e) => {
+    handleSetFilter({ search: e.target.value});
+  }, 500);
+
   return (
     <>
       <div className="flex gap-3 w-full px-4 py-2 sticky top-[98px] bg-white">
@@ -24,6 +32,7 @@ const SearchGames = () => {
               "w-full h-full flex-1 px-2 py-2 rounded-l-none rounded-r-md",
               "focus:outline-none focus:ring-0 focus:ring-transparent focus:border-primary"
             )}
+            onChange={handleDebounce}
           />
         </div>
         <GameProviderMenu />

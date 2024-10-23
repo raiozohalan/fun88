@@ -1,60 +1,55 @@
 import React, { useEffect, useMemo } from "react";
 import GameItem from "./GameItem";
 import { DUMMY_GAME_LIST } from "./game-list";
-import { GameData } from "@/context/interface";
+import { GameData, RootContextProps } from "@/context/interface";
 import { useRootContext } from "@/context/useRootContext";
+import useFilter from "@/hooks/useFilter";
 
 const GameList = () => {
-  const { state, dispatch } = useRootContext();
-
-  const isLoading = useMemo(() => {
-    return state?.games?.isFetching;
-  }, [state]);
-
-  const gameList = useMemo(() => {
-    return isLoading
-      ? [...Array(6)].map(() => ({
-          // Display 6 loading states
-          isLoading: true,
-          id: Math.random().toLocaleString(),
-        }))
-      : state?.games?.data; // Display the game list
-  }, [state?.games?.data, isLoading]);
-
-  const setLoading = (loading: boolean) => {
-    dispatch({ type: "SET_GAME_LIST_LOADING", payload: loading });
-  };
+  const { dispatch, state } = useRootContext();
+  const { filteredGames } = useFilter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        dispatch({ type: "SET_GAME_LIST_LOADING", payload: true });
         const data: GameData[] = await new Promise((resolve) => {
           setTimeout(() => {
-            resolve([...DUMMY_GAME_LIST, ...DUMMY_GAME_LIST]);
+            resolve([...Array(5)].flatMap(() => DUMMY_GAME_LIST));
           }, 3000);
         });
 
         dispatch({ type: "SET_GAME_LIST", payload: data });
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchData();
   }, []);
 
+  const isEmptyGames = useMemo(
+    () => state?.games?.data?.length === 0,
+    [state?.games?.data]
+  );
+
+  if (!filteredGames?.length)
+    return (
+      <p className="w-full p-5 text-center text-tertiary">
+        {isEmptyGames ? "No games available" : "No games found"}
+      </p>
+    );
+
   return (
     <div className="grid grid-cols-3 px-3 py-4 gap-3">
-      {gameList?.map(
+      {filteredGames?.map(
         (
-          gameData: Partial<GameData & { isLoading: boolean }>,
+          gameData: Partial<GameData & { isLoading?: boolean }>,
           index: number
-        ) => (
-          <GameItem key={index} {...gameData} />
-        )
+        ) => {
+          const keyName = (gameData?.id ?? "") + index;
+          return <GameItem key={keyName} {...gameData} />;
+        }
       )}
     </div>
   );

@@ -25,7 +25,7 @@ const GameProviderMenu = () => {
           "overflow-y-auto overflow-x-hidden",
           "bg-black/50 z-50",
           "transition-all duration-100 ease-in",
-          showGameProviderMenu ? "top-0 opacity-100" : "top-full opacity-0"
+          showGameProviderMenu ? "top-0 opacity-100" : "-top-full opacity-0"
         )}
       >
         <div

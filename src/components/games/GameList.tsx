@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from "react";
 import GameItem from "./GameItem";
 import { DUMMY_GAME_LIST } from "./game-list";
-import { GameData, RootContextProps } from "@/context/interface";
+import { GameData, GameDataItem } from "@/context/interface";
 import { useRootContext } from "@/context/useRootContext";
 import useFilter from "@/hooks/useFilter";
 
@@ -13,9 +13,9 @@ const GameList = () => {
     const fetchData = async () => {
       try {
         dispatch({ type: "SET_GAME_LIST_LOADING", payload: true });
-        const data: GameData[] = await new Promise((resolve) => {
+        const data: GameData = await new Promise((resolve) => {
           setTimeout(() => {
-            resolve([...Array(5)].flatMap(() => DUMMY_GAME_LIST));
+            resolve(DUMMY_GAME_LIST);
           }, 3000);
         });
 
@@ -29,7 +29,7 @@ const GameList = () => {
   }, []);
 
   const isEmptyGames = useMemo(
-    () => state?.games?.data?.length === 0,
+    () => Object.keys(state?.games?.data ?? {})?.length === 0,
     [state?.games?.data]
   );
 
@@ -44,7 +44,7 @@ const GameList = () => {
     <div className="grid grid-cols-3 px-3 py-4 gap-3">
       {filteredGames?.map(
         (
-          gameData: Partial<GameData & { isLoading?: boolean }>,
+          gameData: Partial<GameDataItem & { isLoading?: boolean }>,
           index: number
         ) => {
           const keyName = (gameData?.id ?? "") + index;

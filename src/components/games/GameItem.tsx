@@ -21,7 +21,7 @@ function GameItem(props: Partial<GameDataItem & { isLoading?: boolean }>) {
     (e: React.MouseEvent<HTMLButtonElement>) => {
       e.preventDefault(); // Prevent default behavior
       e.stopPropagation(); // Stop event propagation to parent elements
-      dispatch({ type: "UPDATE_GAME_DATA", payload: { id, isFavorite: true } });
+      dispatch({ type: "UPDATE_GAME_DATA", payload: { id, isFavorite: !isFavorite } });
     },
     [id, isFavorite]
   );

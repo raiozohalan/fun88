@@ -35,11 +35,11 @@ const FOTTER_MENU = [
 ];
 
 const Footer = () => {
-  const [activeTab, setActiveTab] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<string>("Sports");
 
   const isActiveTab = useCallback(
     (tabName: string): boolean => {
-      return activeTab === tabName;
+      return activeTab.toLocaleLowerCase() === tabName.toLocaleLowerCase();
     },
     [activeTab]
   );
@@ -66,9 +66,9 @@ const Footer = () => {
                 "p-1.5 aspect-square",
                 "flex items-center justify-center",
                 isActive
-                  ? "bg-[url(/assets/footer/active-border.svg)] bg-no-repeat bg-center bg-cover " +
-                      textColor
-                  : ""
+                  ? "bg-[url(/assets/footer/active-border.svg)] bg-no-repeat bg-center bg-cover "
+                  : "",
+                textColor
               )}
             >
               <Icon className="size-6" />

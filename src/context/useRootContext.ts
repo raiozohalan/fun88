@@ -12,6 +12,12 @@ export const initialState: RootContextProps = {
     isFetching: false,
     data: [],
   },
+  filters: {
+    category: "Start", // Default category
+    search: "",
+    gameProviderID: "",
+    isFetching: false,
+  }
 };
 
 export const RootContext = createContext<GameContextProps>({

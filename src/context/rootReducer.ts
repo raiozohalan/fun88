@@ -41,6 +41,10 @@ export const rootReducer = (
       return setFetchingState(state, "games", payload);
     case "SET_GAME_LIST":
       return setDataState(state, "games", payload);
+    case "SET_FILTER_LOADING":
+        return setFetchingState(state, "filters", payload);
+    case "SET_FILTER":
+        return setDataState(state, "filters", payload);
     default:
       return state;
   }

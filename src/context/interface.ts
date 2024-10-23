@@ -34,6 +34,12 @@ export interface RootContextProps {
     isFetching: boolean;
     data: GameData[];
   };
+  filters: {
+    category?: GameCategory;
+    search?: string;
+    gameProviderID?: string;
+    isFetching?: boolean;
+  }
 }
 
 export interface GameContextProps {

@@ -1,6 +1,18 @@
-import { GameDataItem, RootContextProps } from "./interface";
+import {
+  GameData,
+  GameDataItem,
+  GameProvider,
+  RootContextProps,
+} from "./interface";
 
-type Action = { type: string; payload: unknown };
+export type Action =
+  | { type: "SET_GAME_PROVIDER_LOADING"; payload: boolean }
+  | { type: "SET_GAME_PROVIDER"; payload: GameProvider[] }
+  | { type: "SET_GAME_LIST_LOADING"; payload: boolean }
+  | { type: "SET_GAME_LIST"; payload: GameData }
+  | { type: "SET_FILTER_LOADING"; payload: boolean }
+  | { type: "SET_FILTER"; payload: Partial<RootContextProps["filters"]> }
+  | { type: "UPDATE_GAME_DATA"; payload: Partial<GameDataItem> & { id: string } };
 
 const setFetchingState = (
   state: RootContextProps,
@@ -29,7 +41,7 @@ const setDataState = (
 
 const updateGameData = (
   state: RootContextProps,
-  payload: GameDataItem
+  payload: Partial<GameDataItem> & { id: string }
 ): RootContextProps => {
   const updatedGames = { ...state?.games?.data };
   updatedGames[payload?.id] = {

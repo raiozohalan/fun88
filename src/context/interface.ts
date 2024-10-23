@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { Action } from "./rootReducer";
 
 export type GameCategory =
   | "Bingo"
@@ -48,5 +49,5 @@ export interface RootContextProps {
 
 export interface GameContextProps {
   state: RootContextProps | null;
-  dispatch: Dispatch<{ type: string; payload: unknown }>;
+  dispatch: Dispatch<Action>;
 }

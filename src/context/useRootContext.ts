@@ -10,7 +10,7 @@ export const initialState: RootContextProps = {
   },
   games: {
     isFetching: false,
-    data: [],
+    data: {},
   },
   filters: {
     category: "Start", // Default category

@@ -7,9 +7,17 @@ import classNames from "@/utils/classNames";
 import Button from "@/components/base/button/Button";
 import { useRootContext } from "@/context/useRootContext";
 import { GameProvider } from "@/context/interface";
+import useFilter from "@/hooks/useFilter";
 
-const GameProviderList: React.FC = () => {
+interface GameProviderListProps {
+  closeMenu: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const GameProviderList: React.FC<GameProviderListProps> = ({
+  closeMenu,
+}: GameProviderListProps) => {
   const { state, dispatch } = useRootContext();
+  const { handleSetFilter } = useFilter();
 
   const isLoading = useMemo(() => {
     return state?.gameProvider?.isFetching;
@@ -44,6 +52,11 @@ const GameProviderList: React.FC = () => {
     fetchData();
   }, []);
 
+  const handleSelectProvider = (id: string) => {
+    handleSetFilter({ gameProviderID: id });
+    closeMenu(false);
+  };
+
   return (
     <div
       className={classNames(
@@ -70,6 +83,7 @@ const GameProviderList: React.FC = () => {
                   "h-full flex items-center justify-center",
                   "bg-[#F2F2FA] rounded-md"
                 )}
+                onClick={() => handleSelectProvider(id)}
               >
                 <Image
                   src={logo}

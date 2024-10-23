@@ -25,7 +25,9 @@ const GameProviderMenu = () => {
           "overflow-y-auto overflow-x-hidden",
           "bg-black/50 z-50",
           "transition-all duration-100 ease-in",
-          showGameProviderMenu ? "h-screen max-h-screen opacity-100" : "h-0 opacity-0"
+          showGameProviderMenu
+            ? "h-screen max-h-screen opacity-100"
+            : "h-0 opacity-0"
         )}
       >
         <div
@@ -36,7 +38,9 @@ const GameProviderMenu = () => {
           )}
         >
           <GameProviderHeader closeMenu={setShowGameProviderMenu} />
-          {showGameProviderMenu ? <GameProviderList /> : null}
+          {showGameProviderMenu ? (
+            <GameProviderList closeMenu={setShowGameProviderMenu} />
+          ) : null}
         </div>
       </div>
     </>

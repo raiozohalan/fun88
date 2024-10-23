@@ -1,3 +1,4 @@
+import { ValueOf } from "next/dist/shared/lib/constants";
 import { RootContextProps } from "./interface";
 
 type Action = { type: string; payload: any };
@@ -22,7 +23,7 @@ const setDataState = (
   ...state,
   [key]: {
     isFetching: false,
-    data,
+    ...data,
   },
 });
 
@@ -36,15 +37,15 @@ export const rootReducer = (
     case "SET_GAME_PROVIDER_LOADING":
       return setFetchingState(state, "gameProvider", payload);
     case "SET_GAME_PROVIDER":
-      return setDataState(state, "gameProvider", payload);
+      return setDataState(state, "gameProvider", { data: payload });
     case "SET_GAME_LIST_LOADING":
       return setFetchingState(state, "games", payload);
     case "SET_GAME_LIST":
-      return setDataState(state, "games", payload);
+      return setDataState(state, "games", { data: payload });
     case "SET_FILTER_LOADING":
-        return setFetchingState(state, "filters", payload);
+      return setFetchingState(state, "filters", payload);
     case "SET_FILTER":
-        return setDataState(state, "filters", payload);
+      return setDataState(state, "filters", payload);
     default:
       return state;
   }

@@ -21,11 +21,11 @@ const GameProviderMenu = () => {
       </Button>
       <div
         className={classNames(
-          "w-screen h-screen absolute top-0 left-0",
+          "w-screen absolute top-0 left-0",
           "overflow-y-auto overflow-x-hidden",
           "bg-black/50 z-50",
           "transition-all duration-100 ease-in",
-          showGameProviderMenu ? "top-0 opacity-100" : "-top-full opacity-0"
+          showGameProviderMenu ? "h-screen opacity-100" : "h-0 opacity-0"
         )}
       >
         <div

@@ -38,9 +38,9 @@ export const rootReducer = (
     case "SET_GAME_PROVIDER":
       return setDataState(state, "gameProvider", payload);
     case "SET_GAME_LIST_LOADING":
-      return setFetchingState(state, "gameList", payload);
+      return setFetchingState(state, "games", payload);
     case "SET_GAME_LIST":
-      return setDataState(state, "gameList", payload);
+      return setDataState(state, "games", payload);
     default:
       return state;
   }

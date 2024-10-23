@@ -1,9 +1,22 @@
 import { Dispatch } from "react";
 
-export interface GameList {
+export type GameCategory =
+  | "Bingo"
+  | "Jackpot"
+  | "Live"
+  | "New"
+  | "Others"
+  | "Search"
+  | "Slots"
+  | "Start"
+  | "Table";
+export interface GameData {
   id: string;
   name: string;
   providerID: string;
+  category: GameCategory;
+  banner: string; // Logo or game banner to display
+  isFavorite?: boolean; // If the game is marked as favorite
 }
 
 export interface GameProvider {
@@ -17,9 +30,9 @@ export interface RootContextProps {
     isFetching: boolean;
     data: GameProvider[];
   };
-  gameList: {
+  games: {
     isFetching: boolean;
-    data: GameList[];
+    data: GameData[];
   };
 }
 

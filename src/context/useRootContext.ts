@@ -8,7 +8,7 @@ export const initialState: RootContextProps = {
     isFetching: false,
     data: [],
   },
-  gameList: {
+  games: {
     isFetching: false,
     data: [],
   },

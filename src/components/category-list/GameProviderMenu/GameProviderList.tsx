@@ -1,24 +1,39 @@
-import React, { useEffect, useState } from "react";
-import gameProviderList from "./game-provider-list";
+"use client";
+
+import React, { useEffect, useMemo } from "react";
+import DUMMY_GAME_PROVIDERS from "./game-provider-list";
 import Image from "next/image";
 import classNames from "@/utils/classNames";
 import Button from "@/components/base/button/Button";
+import { useRootContext } from "@/context/useRootContext";
+import { GameProvider } from "@/context/interface";
 
 const GameProviderList: React.FC = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [fetchGameProviderList, setFetchGameProviderList] = useState<string[]>(
-    []
-  );
+  const { state, dispatch } = useRootContext();
+
+  const isLoading = useMemo(() => {
+    return state?.gameProvider?.isFetching;
+  }, [state]);
+
+  const providerList = useMemo(() => {
+    return state?.gameProvider?.data;
+  }, [state]);
+
+  const setLoading = (loading: boolean) => {
+    dispatch({ type: "SET_GAME_PROVIDER_LOADING", payload: loading });
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data: string[] = await new Promise((resolve) => {
+        setLoading(true);
+        const data: GameProvider[] = await new Promise((resolve) => {
           setTimeout(() => {
-            resolve(gameProviderList);
+            resolve(DUMMY_GAME_PROVIDERS);
           }, 3000);
         });
-        setFetchGameProviderList(data);
+
+        dispatch({ type: "SET_GAME_PROVIDER", payload: data });
       } catch (error) {
         console.error(error);
       } finally {
@@ -36,7 +51,7 @@ const GameProviderList: React.FC = () => {
         "p-3"
       )}
     >
-      {loading
+      {isLoading
         ? [...Array(6)].map((_, index) => (
             <div
               key={index}
@@ -46,11 +61,10 @@ const GameProviderList: React.FC = () => {
               )}
             />
           ))
-        : fetchGameProviderList.map((gameProvider) => {
-            const name = gameProvider.split("/").pop()?.replaceAll(".png", "");
+        : providerList?.map(({ name, id, logo }: GameProvider) => {
             return (
               <Button
-                key={gameProvider}
+                key={id}
                 size="xs"
                 className={classNames(
                   "h-full flex items-center justify-center",
@@ -58,8 +72,8 @@ const GameProviderList: React.FC = () => {
                 )}
               >
                 <Image
-                  src={gameProvider}
-                  loader={() => gameProvider}
+                  src={logo}
+                  loading="lazy"
                   alt={name || "game-provider"}
                   className="rounded-full"
                   width={100}

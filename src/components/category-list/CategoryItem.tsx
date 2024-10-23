@@ -25,9 +25,11 @@ const CategoryItem = (props: CategoryItemProps) => {
 
   const handleSelectCategory = useCallback(() => {
     handleSetFilter(
-      title === "Search" ? { showSearchField: true } : { category: title }
+      title === "Search"
+        ? { showSearchField: !isActiveTab }
+        : { category: title }
     );
-  }, [handleSetFilter, title]);
+  }, [handleSetFilter, title, isActiveTab]);
 
   return (
     <Button

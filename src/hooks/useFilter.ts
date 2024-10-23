@@ -4,16 +4,6 @@ import { useCallback, useMemo } from "react";
 
 const useFilter = () => {
   const { state, dispatch } = useRootContext();
-
-  const validCategories = [
-    "Bingo",
-    "Jackpots",
-    "Live",
-    "New",
-    "Others",
-    "Slots",
-    "Table Games",
-  ];
   
   const gamesFilter = useCallback(
     (game: GameData) => {
@@ -33,8 +23,7 @@ const useFilter = () => {
 
       // Filter by category
       if (category && !["Start", "Search"].includes(category)) {
-        console.log({ validCategories, isValid: validCategories.includes(category), gamecategory: game?.category, category  });
-        if (!validCategories.includes(category)) return false;
+        if (game?.category !== category) return false;
       }
 
       // Filter by game provider
@@ -42,7 +31,7 @@ const useFilter = () => {
 
       return true;
     },
-    [state, validCategories]
+    [state]
   );
 
   /**

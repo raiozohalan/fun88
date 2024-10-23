@@ -9,7 +9,7 @@ const Header = () => {
     <div
       className={classNames(
         "h-[50px] w-full sticky top-0 flex justify-between",
-        "px-2 shadow-md"
+        "px-2 shadow-md bg-white"
       )}
     >
       <div className="flex-1 flex items-center justify-start gap-1">
@@ -28,7 +28,10 @@ const Header = () => {
             $
             {String(DUMMY_WALLET_BALANCE).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
           </b>
-          <SvgWrapper src="/assets/header/divider.svg" className="h-[34px] w-auto" />
+          <SvgWrapper
+            src="/assets/header/divider.svg"
+            className="h-[34px] w-auto"
+          />
         </div>
         <Button size="xs">
           <SvgWrapper src="/assets/header/user.svg" className="h-6 w-6" />

@@ -9,6 +9,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
 }
 
 const BUTTON_SIZE: { [key in ButtonSize]: string } = {
+  fit: "",
   xs: "py-1 px-2",
   sm: "py-2 px-4",
   md: "py-3 px-6",

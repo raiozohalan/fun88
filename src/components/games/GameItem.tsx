@@ -10,7 +10,7 @@ function GameItem(props: Partial<GameData & { isLoading?: boolean }>) {
     <Button
       className={classNames(
         "flex w-full h-auto aspect-square rounded-md overflow-hidden bg-gray-300",
-        "px-0 py-0",
+        "pl-0 pr-0 pt-0 pb-0",
         isLoading ? "animate-pulse" : ""
       )}
     >

@@ -70,7 +70,7 @@ const useFilter = () => {
         payload,
       });
     },
-    []
+    [dispatch]
   );
 
   const filters = useMemo(() => state?.filters, [state?.filters]);

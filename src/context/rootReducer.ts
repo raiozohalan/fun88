@@ -1,6 +1,6 @@
 import { GameDataItem, RootContextProps } from "./interface";
 
-type Action = { type: string; payload: any };
+type Action = { type: string; payload: unknown };
 
 const setFetchingState = (
   state: RootContextProps,
@@ -17,7 +17,7 @@ const setFetchingState = (
 const setDataState = (
   state: RootContextProps,
   key: keyof RootContextProps,
-  data: any
+  data: Partial<RootContextProps[keyof RootContextProps]>
 ): RootContextProps => ({
   ...state,
   [key]: {

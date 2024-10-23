@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import CATEGORY_LIST from "./categories";
 import classNames from "@/utils/classNames";
 import CategoryItem from "./CategoryItem";

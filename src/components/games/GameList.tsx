@@ -26,7 +26,7 @@ const GameList = () => {
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const isEmptyGames = useMemo(
     () => Object.keys(state?.games?.data ?? {})?.length === 0,

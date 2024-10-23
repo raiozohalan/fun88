@@ -39,7 +39,7 @@ const Button = (props: ButtonProps) => {
       BUTTON_ROUNDED[rounded],
       className
     );
-  }, [classNames, size, rounded]);
+  }, [className, size, rounded]);
 
   return (
     <button {...rest} className={buttonStyles}>

@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "@/utils/classNames";
 import Main from "./slides/Main";
 import SvgWrapper from "../wrapper/SvgWrapper";
 

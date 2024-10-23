@@ -6,7 +6,7 @@ import { GameCategory } from "@/context/interface";
 
 interface CategoryItemProps {
   title: GameCategory;
-  Icon: any;
+  Icon: React.FC<React.SVGProps<SVGSVGElement>>;
   isActive?: boolean;
 }
 const CategoryItem = (props: CategoryItemProps) => {

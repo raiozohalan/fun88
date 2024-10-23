@@ -1,8 +1,6 @@
 import React from "react";
 import { Search } from "../assets/game-category";
 import classNames from "@/utils/classNames";
-import Button from "../base/button/Button";
-import SearchMenu from "../assets/SearchMenu";
 import GameProviderMenu from "./GameProviderMenu/GameProviderMenu";
 import debounce from "@/utils/debounce";
 import useFilter from "@/hooks/useFilter";

@@ -27,14 +27,10 @@ const GameProviderList: React.FC<GameProviderListProps> = ({
     return state?.gameProvider?.data;
   }, [state]);
 
-  const setLoading = (loading: boolean) => {
-    dispatch({ type: "SET_GAME_PROVIDER_LOADING", payload: loading });
-  };
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setLoading(true);
+        dispatch({ type: "SET_GAME_PROVIDER_LOADING", payload: true });
         const data: GameProvider[] = await new Promise((resolve) => {
           setTimeout(() => {
             resolve(DUMMY_GAME_PROVIDERS);
@@ -44,13 +40,11 @@ const GameProviderList: React.FC<GameProviderListProps> = ({
         dispatch({ type: "SET_GAME_PROVIDER", payload: data });
       } catch (error) {
         console.error(error);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [dispatch]);
 
   const handleSelectProvider = (id: string) => {
     handleSetFilter({ gameProviderID: id });

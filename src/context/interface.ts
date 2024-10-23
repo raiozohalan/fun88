@@ -48,5 +48,5 @@ export interface RootContextProps {
 
 export interface GameContextProps {
   state: RootContextProps | null;
-  dispatch: Dispatch<{ type: string; payload: any }>;
+  dispatch: Dispatch<{ type: string; payload: unknown }>;
 }

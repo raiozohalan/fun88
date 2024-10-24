@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import DUMMY_GAME_PROVIDERS from "./game-provider-list";
 import Image from "next/image";
 import classNames from "@/utils/classNames";
@@ -8,6 +8,7 @@ import Button from "@/components/base/button/Button";
 import { useRootContext } from "@/context/useRootContext";
 import { GameProvider } from "@/context/interface";
 import useFilter from "@/hooks/useFilter";
+import SvgWrapper from "@/components/base/wrapper/SvgWrapper";
 
 interface GameProviderListProps {
   closeMenu: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,7 +18,7 @@ const GameProviderList: React.FC<GameProviderListProps> = ({
   closeMenu,
 }: GameProviderListProps) => {
   const { state, dispatch } = useRootContext();
-  const { handleSetFilter } = useFilter();
+  const { handleSetFilter, filters } = useFilter();
 
   const isLoading = useMemo(() => {
     return state?.gameProvider?.isFetching;
@@ -46,10 +47,22 @@ const GameProviderList: React.FC<GameProviderListProps> = ({
     fetchData();
   }, [dispatch]);
 
-  const handleSelectProvider = (id: string) => {
-    handleSetFilter({ gameProviderID: id });
-    closeMenu(false);
-  };
+  const handleSelectProvider = useCallback(
+    (id: string) => {
+      const newFilter = new Set(filters?.gameProviderID || []);
+      if(newFilter.has(id)){
+        newFilter.delete(id);
+      } else {
+        newFilter.add(id);
+      }
+
+      handleSetFilter({
+        gameProviderID: newFilter.size ? Array.from(newFilter) : [],
+      });
+      // closeMenu(false);
+    },
+    [closeMenu, handleSetFilter, filters]
+  );
 
   return (
     <div
@@ -74,19 +87,18 @@ const GameProviderList: React.FC<GameProviderListProps> = ({
                 key={id}
                 size="xs"
                 className={classNames(
-                  "h-full flex items-center justify-center",
-                  "bg-[#F2F2FA] rounded-md"
+                  "h-[60px] flex items-center justify-center rounded-md bg-[#F2F2FA]",
+                  filters?.gameProviderID?.includes(id) ? "ring-2 ring-primary" : " "
                 )}
                 onClick={() => handleSelectProvider(id)}
               >
-                <Image
+                <SvgWrapper
                   src={logo}
                   loading="lazy"
                   alt={name || "game-provider"}
                   className="rounded-full"
                   width={100}
                   height={20}
-                  objectFit="fit"
                 />
               </Button>
             );

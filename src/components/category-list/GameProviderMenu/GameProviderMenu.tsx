@@ -1,30 +1,25 @@
 "use client";
 
 import classNames from "@/utils/classNames";
-import React, { useState } from "react";
+import React, { useMemo } from "react";
 import GameProviderHeader from "./Header";
-import Button from "@/components/base/button/Button";
-import SearchMenu from "@/components/assets/SearchMenu";
 import GameProviderList from "./GameProviderList";
+import { useRootContext } from "@/context/useRootContext";
 
 const GameProviderMenu = () => {
-  const [showGameProviderMenu, setShowGameProviderMenu] = useState(false);
+  const { state } = useRootContext();
+
+  const showGameProviderMenu = useMemo(() => {
+    return state?.gameProvider?.showMenu;
+  }, [state?.gameProvider?.showMenu]);
 
   return (
     <>
-      <Button
-        size="xs"
-        className="flex-none ring-1 ring-tertiary rounded-md"
-        onClick={() => setShowGameProviderMenu((prev) => !prev)}
-      >
-        <SearchMenu className="size-5 text-tertiary" />
-      </Button>
       <div
         className={classNames(
           "w-screen fixed top-0 left-0",
           "overflow-y-auto overflow-x-hidden",
-          "bg-black/50 z-50",
-          "transition-all duration-100 ease-in",
+          "bg-black/50 transition-all duration-100 ease-in",
           showGameProviderMenu
             ? "h-screen max-h-screen opacity-100"
             : "h-0 opacity-0"
@@ -32,15 +27,13 @@ const GameProviderMenu = () => {
       >
         <div
           className={classNames(
-            "h-fit w-full min-h-[calc(100vh-144px)] bg-white mt-36 pb-5",
+            "relative h-fit w-full min-h-[calc(100vh-144px)] bg-white mt-36 pb-5",
             "transition-all duration-300 delay-75 ease-in-out",
             showGameProviderMenu ? "translate-y-0" : "translate-y-full"
           )}
         >
-          <GameProviderHeader closeMenu={setShowGameProviderMenu} />
-          {showGameProviderMenu ? (
-            <GameProviderList closeMenu={setShowGameProviderMenu} />
-          ) : null}
+          <GameProviderHeader />
+          {showGameProviderMenu ? <GameProviderList /> : null}
         </div>
       </div>
     </>

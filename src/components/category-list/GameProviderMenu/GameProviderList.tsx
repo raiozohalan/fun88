@@ -9,11 +9,7 @@ import { GameProvider } from "@/context/interface";
 import useFilter from "@/hooks/useFilter";
 import SvgWrapper from "@/components/base/wrapper/SvgWrapper";
 
-interface GameProviderListProps {
-  closeMenu: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-const GameProviderList: React.FC<GameProviderListProps> = () =>
+const GameProviderList: React.FC = () =>
   // {
   //   closeMenu,
   // } : GameProviderListProps

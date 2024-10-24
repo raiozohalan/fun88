@@ -2,15 +2,11 @@ import SearchMenu from "@/components/assets/SearchMenu";
 import Button from "@/components/base/button/Button";
 import SvgWrapper from "@/components/base/wrapper/SvgWrapper";
 import classNames from "@/utils/classNames";
-import React, { Dispatch, SetStateAction, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useRootContext } from "@/context/useRootContext";
 
-interface GameProviderHeaderProps {
-  closeMenu: Dispatch<SetStateAction<boolean>>;
-}
-
-const GameProviderHeader = ({ closeMenu }: GameProviderHeaderProps) => {
-  const { state } = useRootContext();
+const GameProviderHeader = () => {
+  const { state, dispatch } = useRootContext();
 
   const providerCount = useMemo(
     (): number => state?.gameProvider?.data?.length ?? 0,
@@ -50,7 +46,12 @@ const GameProviderHeader = ({ closeMenu }: GameProviderHeaderProps) => {
           </span>
         )}
       </div>
-      <Button size="xs" onClick={() => closeMenu((prev: boolean) => !prev)}>
+      <Button
+        size="xs"
+        onClick={() =>
+          dispatch({ type: "SET_GAME_PROVIDER_MENU", payload: false })
+        }
+      >
         <SvgWrapper alt="Close" src="/assets/close.svg" className="size-4" />
       </Button>
     </div>

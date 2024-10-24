@@ -33,6 +33,7 @@ export interface RootContextProps {
   gameProvider: {
     isFetching: boolean;
     data: GameProvider[];
+    showMenu: boolean;
   };
   games: {
     isFetching: boolean;

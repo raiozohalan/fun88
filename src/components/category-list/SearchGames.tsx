@@ -1,11 +1,14 @@
 import React from "react";
 import { Search } from "../assets/game-category";
 import classNames from "@/utils/classNames";
-import GameProviderMenu from "./GameProviderMenu/GameProviderMenu";
 import debounce from "@/utils/debounce";
 import useFilter from "@/hooks/useFilter";
+import Button from "../base/button/Button";
+import { useRootContext } from "@/context/useRootContext";
+import SearchMenu from "../assets/SearchMenu";
 
 const SearchGames = () => {
+  const { dispatch } = useRootContext();
   const { handleSetFilter } = useFilter();
 
   const handleDebounce = debounce((...args: unknown[]) => {
@@ -34,7 +37,15 @@ const SearchGames = () => {
             onChange={handleDebounce}
           />
         </div>
-        <GameProviderMenu />
+        <Button
+          size="xs"
+          className="flex-none ring-1 ring-tertiary rounded-md"
+          onClick={() =>
+            dispatch({ type: "SET_GAME_PROVIDER_MENU", payload: true })
+          }
+        >
+          <SearchMenu className="size-5 text-tertiary" />
+        </Button>
       </div>
     </>
   );

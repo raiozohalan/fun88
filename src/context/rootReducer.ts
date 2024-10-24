@@ -8,11 +8,15 @@ import {
 export type Action =
   | { type: "SET_GAME_PROVIDER_LOADING"; payload: boolean }
   | { type: "SET_GAME_PROVIDER"; payload: GameProvider[] }
+  | { type: "SET_GAME_PROVIDER_MENU"; payload: boolean }
   | { type: "SET_GAME_LIST_LOADING"; payload: boolean }
   | { type: "SET_GAME_LIST"; payload: GameData }
   | { type: "SET_FILTER_LOADING"; payload: boolean }
   | { type: "SET_FILTER"; payload: Partial<RootContextProps["filters"]> }
-  | { type: "UPDATE_GAME_DATA"; payload: Partial<GameDataItem> & { id: string } };
+  | {
+      type: "UPDATE_GAME_DATA";
+      payload: Partial<GameDataItem> & { id: string };
+    };
 
 const setFetchingState = (
   state: RootContextProps,
@@ -69,6 +73,8 @@ export const rootReducer = (
       return setFetchingState(state, "gameProvider", payload);
     case "SET_GAME_PROVIDER":
       return setDataState(state, "gameProvider", { data: payload });
+    case "SET_GAME_PROVIDER_MENU":
+      return setDataState(state, "gameProvider", { showMenu: payload });
     case "SET_GAME_LIST_LOADING":
       return setFetchingState(state, "games", payload);
     case "SET_GAME_LIST":

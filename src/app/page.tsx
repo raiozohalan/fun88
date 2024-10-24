@@ -2,6 +2,7 @@
 
 import Banner from "@/components/base/banner/Banner";
 import CategoryList from "@/components/category-list/CategoryList";
+import GameProviderMenu from "@/components/category-list/GameProviderMenu/GameProviderMenu";
 import Footer from "@/components/Footer";
 import GameList from "@/components/games/GameList";
 import Header from "@/components/Header";
@@ -25,6 +26,7 @@ export default function Home() {
         </main>
         <Footer />
       </div>
+      <GameProviderMenu />
     </ContextProvider>
   );
 }

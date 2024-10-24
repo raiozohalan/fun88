@@ -8,6 +8,7 @@ export const initialState: RootContextProps = {
   gameProvider: {
     isFetching: false,
     data: [],
+    showMenu: false,
   },
   games: {
     isFetching: false,

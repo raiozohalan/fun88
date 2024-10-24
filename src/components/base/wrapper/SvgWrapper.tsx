@@ -1,20 +1,13 @@
-import Image from "next/image";
+import Image, { ImageProps } from "next/image";
 import React from "react";
 
-interface SvgWrapperProps {
-  src: string;
-  alt?: string;
-  width?: number;
-  height?: number;
-  className?: string;
-}
-
-const SvgWrapper: React.FC<SvgWrapperProps> = ({
+const SvgWrapper: React.FC<ImageProps> = ({
   src,
   alt,
   width = 32,
   height = 32,
   className,
+  ...resProps
 }) => {
   return (
     <Image
@@ -23,6 +16,7 @@ const SvgWrapper: React.FC<SvgWrapperProps> = ({
       width={width}
       height={height}
       className={className}
+      {...resProps}
     />
   );
 };

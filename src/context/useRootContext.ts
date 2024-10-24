@@ -15,7 +15,7 @@ export const initialState: RootContextProps = {
   filters: {
     category: "Start", // Default category
     search: "",
-    gameProviderID: "",
+    gameProviderID: [],
     isFetching: false,
   }
 };

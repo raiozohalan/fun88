@@ -41,6 +41,7 @@ function GameItem(props: Partial<GameDataItem & { isLoading?: boolean }>) {
             height={512}
             src={banner}
             alt={name}
+            loading="lazy"
             className="col-start-1 row-start-1 w-full h-full bg-cover"
           />
 

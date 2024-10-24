@@ -42,7 +42,7 @@ export interface RootContextProps {
     category?: GameCategory;
     search?: string;
     showSearchField?: boolean;
-    gameProviderID?: string;
+    gameProviderID?: string[];
     isFetching?: boolean;
   };
 }

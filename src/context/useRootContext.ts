@@ -1,29 +1,8 @@
 "use client";
 
-import { createContext, useContext } from "react";
+import { useContext } from "react";
 import { GameContextProps, RootContextProps } from "./interface";
-
-export const initialState: RootContextProps = {
-  gameProvider: {
-    isFetching: false,
-    data: [],
-  },
-  games: {
-    isFetching: false,
-    data: {},
-  },
-  filters: {
-    category: "Start", // Default category
-    search: "",
-    gameProviderID: [],
-    isFetching: false,
-  }
-};
-
-export const RootContext = createContext<GameContextProps>({
-  state: initialState,
-  dispatch: () => {},
-});
+import { RootContext } from "./ContextProvider";
 
 export const useRootContext = (): GameContextProps => {
   const { state, dispatch } = useContext(RootContext);

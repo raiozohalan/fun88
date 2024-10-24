@@ -51,7 +51,7 @@ const GameProviderHeader = ({ closeMenu }: GameProviderHeaderProps) => {
         )}
       </div>
       <Button size="xs" onClick={() => closeMenu((prev: boolean) => !prev)}>
-        <SvgWrapper src="/assets/close.svg" className="size-4" />
+        <SvgWrapper alt="Close" src="/assets/close.svg" className="size-4" />
       </Button>
     </div>
   );

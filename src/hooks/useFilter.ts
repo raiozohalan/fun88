@@ -1,6 +1,6 @@
 import { GameData, GameDataItem, RootContextProps } from "@/context/interface";
 import { useRootContext } from "@/context/useRootContext";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 /**
  * Check if any of the keys are fetching
@@ -64,6 +64,8 @@ const useFilter = () => {
     []
   );
 
+  const filters = useMemo(() => state?.filters, [state?.filters]);
+
   useEffect(() => {
     // Dummy data
     if (filters && isLoading(["games"], state))
@@ -77,7 +79,7 @@ const useFilter = () => {
 
     if (state?.games?.data && Object.keys(state?.games?.data)?.length)
       setFilteredGames(handleFilterGames(state?.games?.data, state?.filters));
-  }, [JSON.stringify(state)]);
+  }, [state, filters]);
 
   const handleSetFilter = useCallback(
     (payload: RootContextProps["filters"]) => {
@@ -86,10 +88,8 @@ const useFilter = () => {
         payload,
       });
     },
-    []
+    [dispatch]
   );
-
-  const filters = useMemo(() => state?.filters, [state?.filters]);
 
   return { filteredGames, isLoading, handleSetFilter, filters };
 };

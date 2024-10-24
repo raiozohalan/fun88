@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { GameContextProps, RootContextProps } from "./interface";
+import { GameContextProps } from "./interface";
 import { RootContext } from "./ContextProvider";
 
 export const useRootContext = (): GameContextProps => {

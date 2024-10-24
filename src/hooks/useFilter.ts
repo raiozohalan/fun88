@@ -1,76 +1,92 @@
-import { GameDataItem, RootContextProps } from "@/context/interface";
+import { GameData, GameDataItem, RootContextProps } from "@/context/interface";
 import { useRootContext } from "@/context/useRootContext";
-import { useCallback, useMemo } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+
+/**
+ * Check if any of the keys are fetching
+ * @param {string[]} keys
+ * @returns {boolean} isLoading
+ */
+const isLoading = (
+  keys: (keyof RootContextProps)[],
+  state: RootContextProps | null
+): boolean => {
+  if (!state) return false;
+
+  return keys?.some((key) => state?.[key]?.isFetching);
+};
+
+const gamesFilter = (
+  game: GameDataItem,
+  filters: RootContextProps["filters"]
+) => {
+  if (!filters) return true;
+
+  const { search, category, gameProviderID } = filters;
+
+  // Filter by search keyword
+  if (search) {
+    const isSearchMatch = game?.name
+      ?.toLocaleLowerCase()
+      ?.search(search?.toLocaleLowerCase());
+    if (isSearchMatch === -1) return false;
+  }
+
+  // Filter by category
+  if (category && !["Start", "Search"].includes(category)) {
+    if (game?.category !== category) return false;
+  }
+
+  // Filter by game provider
+  if (gameProviderID?.length && !gameProviderID?.includes(game.providerID))
+    return false;
+  return true;
+};
+
+/**
+ * Filter games based on search keyword, category, and game provider
+ * @returns {GameData} filteredGames
+ */
+const handleFilterGames = (
+  games: GameData,
+  filters: RootContextProps["filters"] | undefined
+) => {
+  if (games && !Object.values(games)?.length) return [];
+
+  return Object.values(games ?? {})?.filter((game) =>
+    gamesFilter(game, filters ?? {})
+  );
+};
 
 const useFilter = () => {
   const { state, dispatch } = useRootContext();
-
-  const gamesFilter = useCallback(
-    (game: GameDataItem) => {
-      const { filters } = state || {};
-
-      if (!filters) return true;
-
-      const { search, category, gameProviderID } = filters;
-
-      // Filter by search keyword
-      if (search) {
-        const isSearchMatch = game?.name
-          ?.toLocaleLowerCase()
-          ?.search(search?.toLocaleLowerCase());
-        if (isSearchMatch === -1) return false;
-      }
-
-      // Filter by category
-      if (category && !["Start", "Search"].includes(category)) {
-        if (game?.category !== category) return false;
-      }
-
-      // Filter by game provider
-      if (gameProviderID && game.providerID !== gameProviderID) return false;
-
-      return true;
-    },
-    [state]
+  const [filteredGames, setFilteredGames] = useState<Partial<GameDataItem>[]>(
+    []
   );
 
-  /**
-   * Check if any of the keys are fetching
-   * @param {string[]} keys
-   * @returns {boolean} isLoading
-   */
-  const isLoading = useCallback(
-    (keys: (keyof RootContextProps)[]): boolean => {
-      return keys?.some((key) => state?.[key]?.isFetching);
-    },
-    [state]
-  );
-
-  /**
-   * Filter games based on search keyword, category, and game provider
-   * @returns {GameData[]} filteredGames
-   */
-  const filteredGames = useMemo(() => {
+  useEffect(() => {
     // Dummy data
-    if (isLoading(["games"]))
-      return [...Array(6)].map(() => ({
-        // Display 6 loading states
-        isLoading: true,
-        id: Math.random().toLocaleString(),
-      }));
+    if (filters && isLoading(["games"], state))
+      setFilteredGames(
+        [...Array(6)].map(() => ({
+          // Display 6 loading states
+          isLoading: true,
+          id: Math.random().toLocaleString(),
+        }))
+      );
 
-    return Object.values(state?.games?.data ?? {})?.filter(gamesFilter);
-  }, [state, gamesFilter, isLoading]);
+    if (state?.games?.data && Object.keys(state?.games?.data)?.length)
+      setFilteredGames(handleFilterGames(state?.games?.data, state?.filters));
+  }, [JSON.stringify(state)]);
 
   const handleSetFilter = useCallback(
     (payload: RootContextProps["filters"]) => {
-      // Fetch data
       dispatch({
         type: "SET_FILTER",
         payload,
       });
     },
-    [dispatch]
+    []
   );
 
   const filters = useMemo(() => state?.filters, [state?.filters]);
